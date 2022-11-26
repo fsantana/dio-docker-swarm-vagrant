@@ -1,0 +1,16 @@
+# _*_ mode: ruby _*_
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "generic/alpine316"
+    config.vm.hostname = "base-docker-swarm"
+    config.ssh.insert_key = false
+    config.vm.provider "virtualbox" do |vb|
+      vb.name = "base-docker-swarm"
+      vb.memory = 512
+      vb.cpus = 1
+    end
+    config.vm.provision "shell", path: "docker.sh", reset: true
+
+end
