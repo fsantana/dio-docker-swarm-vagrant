@@ -1,5 +1,6 @@
 cd base-box
-del package.box
+del package.
+vagrant box remove base-docker-swarm
 vagrant up
 vagrant halt
 vagrant package --base base-docker-swarm
