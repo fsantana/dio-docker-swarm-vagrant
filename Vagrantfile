@@ -1,3 +1,6 @@
+# _*_ mode: ruby _*_
+# vi: set ft=ruby :
+
 machines = {
   "master" => {"memory" => "512", "cpu" => "1", "ip" => "100", "image" => "generic/alpine316"},
   "node01" => {"memory" => "512", "cpu" => "1", "ip" => "101", "image" => "generic/alpine316"},
@@ -17,13 +20,13 @@ Vagrant.configure("2") do |config|
         vb.name = "#{name}"
         vb.memory = conf["memory"]
         vb.cpus = conf["cpu"]
+      machine.vm.synced_folder ".", "/vagrant"
         
       end
       machine.vm.provision "shell", path: "docker.sh", reset: true
       
       if "#{name}" == "master"
-        machine.vm.provision "shell", 
-          path: "master.sh"
+        machine.vm.provision "shell", path: "master.sh"
       else
         machine.vm.provision "shell", path: "worker.sh"
       end
